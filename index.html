@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./vendor/normalize.css">
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/mesto-logo.svg" alt="логотип в виде надписи 'место Россия'">
+    </header>
+
+    <section class="main">
+      <section class="profile">
+        <div class="profile__profile-info">
+          <img class="profile__avatar" src="./images/avatar.jpg" alt="">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h2 class="profile__description">Исследователь океана</h2>
+          <button class="profile__edit-btn"></button>
+        </div>
+        <button class="profile__add-btn"><img class="profile__x" src="./images/x.svg" alt=""></button>
+      </section>
+      <section class="elements">
+
+        <article class="element">
+          <img class="element__image" src="./images/element-1.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Карачаевск</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+        <article class="element">
+          <img class="element__image" src="./images/element-2.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Гора Эльбрус</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+        <article class="element">
+          <img class="element__image" src="./images/element-3.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Домбай</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+        <article class="element">
+          <img class="element__image" src="./images/element-4.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Гора Эльбрус</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+        <article class="element">
+          <img class="element__image" src="./images/element-5.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Домбай</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+        <article class="element">
+          <img class="element__image" src="./images/element-6.jpg" alt="">
+          <div class="element__text-zone">
+            <p class="element__text">Карачаево-Черкесия</p>
+            <button class="element__like-btn"></button>
+          </div>
+        </article>
+
+      </section>
+    </section>
+
+    <section class="footer">
+      <p class="footer__copyright">
+        &#169; 2023 Mesto Russia 
+      </p>
+    </section>
+  </div>
+
+  <form class="popup">
+    <fieldset class="popup__container">
+      <img class="popup__btn-close" src="./images/Close-Icon.svg" alt="иконка закрытия высплывающего окна">
+
+      <h3 class="popup__info">Редактировать профиль</h3>
+
+      <label class="popup__label" for="name">
+        <input class="popup__input" name="popup-name" type="text" id="name" min="2" max="25" placeholder="Имя" value="Жак-Ив Кусто" required>
+      </label>
+
+      <label class="popup__label" for="description">
+        <input class="popup__input" name="popup-description" type="text" id="description" min="2" max="25" placeholder="О себе" value="Исследователь океана" required>
+      </label>
+
+      <label for="submit">
+        <input value="Сохранить" class="popup__btn-submit" type="submit" id="submit">
+      </label>
+    </fieldset>
+  </form>
+</body>
+</html>
