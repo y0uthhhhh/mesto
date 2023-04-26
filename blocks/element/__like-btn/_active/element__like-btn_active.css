@@ -1,0 +1,14 @@
+.element__like-btn_active {
+  width: 22px;
+  height: 19px;
+  background-image: url(../images/black-heart.svg);
+  padding: 0;
+  margin: 0;
+  border: none;
+  transition: 0.4s;
+}
+
+.element__like-btn_active:hover {
+  cursor: pointer;
+  opacity: .6;
+}

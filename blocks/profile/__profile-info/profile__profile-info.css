@@ -1,0 +1,31 @@
+.profile__profile-info {
+  display: grid;
+  grid-template-areas: 
+  "avatar name btn"
+  "avatar description ."
+  ;
+  max-width: 486px;
+  row-gap: 16px;
+}
+
+@media screen and (max-width: 920px) {
+  .profile__profile-info {
+    margin: 0 auto 36px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile__profile-info {
+    grid-template-areas: 
+    "avatar avatar"
+    "name btn"
+    "description description"
+    ;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__profile-info {
+    row-gap: 14px;
+  }
+}
