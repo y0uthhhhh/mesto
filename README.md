@@ -16,7 +16,7 @@
 
 **gh pages**
 
-* [Ссылка проекта на gh pages]()
+* [Ссылка проекта на gh pages](https://y0uthhhhh.github.io/mesto/)
 
 **Доработки**
 
