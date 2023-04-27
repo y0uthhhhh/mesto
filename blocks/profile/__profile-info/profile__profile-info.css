@@ -2,8 +2,7 @@
   display: grid;
   grid-template-areas: 
   "avatar name btn"
-  "avatar description description"
-  ;
+  "avatar description description";
   max-width: 486px;
   row-gap: 16px;
 }
@@ -16,11 +15,10 @@
 
 @media screen and (max-width: 700px) {
   .profile__profile-info {
-    grid-template-areas: 
-    "avatar avatar"
-    "name btn"
-    "description description"
-    ;
+    grid-template-areas:
+    "avatar avatar" 
+    "name btn" 
+    "description description";
   }
 }
 
