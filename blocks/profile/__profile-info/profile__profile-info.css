@@ -2,7 +2,7 @@
   display: grid;
   grid-template-areas: 
   "avatar name btn"
-  "avatar description ."
+  "avatar description description"
   ;
   max-width: 486px;
   row-gap: 16px;
