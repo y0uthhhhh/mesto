@@ -1,9 +1,11 @@
 .profile__edit-btn {
   padding: 0;
   margin: 0 0 0 18px;
-  background-image: url(../../../images/edit-btn.svg);
-  border: none;
-  background-color: black;
+  background-image: url(../../../images/pencil.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid white;
+  background-color: transparent;
   width: 24px;
   height: 24px;
   grid-area: btn;
@@ -19,5 +21,8 @@
 @media screen and (max-width: 400px) {
   .profile__edit-btn {
     margin-left: 10px;
+    height: 18px;
+    width: 18px;
+    background-size: 7.5px;
   }
 }

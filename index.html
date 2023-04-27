@@ -13,95 +13,90 @@
       <img class="header__logo" src="./images/mesto-logo.svg" alt="логотип в виде надписи 'место Россия'">
     </header>
 
-    <section class="main">
+    <main class="main">
       <section class="profile">
         <div class="profile__profile-info">
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="">
+          <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватарка, на ней мужчина пожилового возраста, улыбающийся. Позади океан">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <h2 class="profile__description">Исследователь океана</h2>
-          <button class="profile__edit-btn"></button>
+          <p class="profile__description">Исследователь океана</p>
+          <button type="button" class="profile__edit-btn"></button>
         </div>
-        <button class="profile__add-btn"><img class="profile__add-btn-image" src="./images/x.svg" alt=""></button>
+        <button type="button" class="profile__add-btn"></button>
       </section>
       <section class="elements">
 
         <article class="element">
-          <img class="element__image" src="./images/element-1.jpg" alt="">
+          <img class="element__image" src="./images/element-1.jpg" alt="изображение заброшеного храма в горах">
           <div class="element__text-zone">
-            <p class="element__text">Карачаевск</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Карачаевск</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/element-2.jpg" alt="">
+          <img class="element__image" src="./images/element-2.jpg" alt="изображение степи с редкими кустами">
           <div class="element__text-zone">
-            <p class="element__text">Гора Эльбрус</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/element-3.jpg" alt="">
+          <img class="element__image" src="./images/element-3.jpg" alt="изображение елок. На заднем плане горы с заснеженными вершинами">
           <div class="element__text-zone">
-            <p class="element__text">Домбай</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Домбай</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/element-4.jpg" alt="">
+          <img class="element__image" src="./images/element-4.jpg" alt="изображение степи с редкими кустами">
           <div class="element__text-zone">
-            <p class="element__text">Гора Эльбрус</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/element-5.jpg" alt="">
+          <img class="element__image" src="./images/element-5.jpg" alt="изображение елок. На заднем плане горы с заснеженными вершинами">
           <div class="element__text-zone">
-            <p class="element__text">Домбай</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Домбай</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
         <article class="element">
-          <img class="element__image" src="./images/element-6.jpg" alt="">
+          <img class="element__image" src="./images/element-6.jpg" alt="изображение заброшеного храма в горах">
           <div class="element__text-zone">
-            <p class="element__text">Карачаево-Черкесия</p>
-            <button class="element__like-btn"></button>
+            <h2 class="element__text">Карачаево-Черкесия</h2>
+            <button type="button" class="element__like-btn"></button>
           </div>
         </article>
 
       </section>
-    </section>
+    </main>
 
-    <section class="footer">
+    <footer class="footer">
       <p class="footer__copyright">
-        &#169; 2023 Mеsto Russia 
+        &copy; 2023 Mеsto Russia 
       </p>
-    </section>
+    </footer>
   </div>
 
-  <form class="popup">
-    <fieldset class="popup__container">
-      <img class="popup__btn-close" src="./images/Close-Icon.svg" alt="иконка закрытия высплывающего окна">
+  <div class="popup">
+    <div class="popup__container">
+      <button type="button" class="popup__btn-close"></button>
 
       <h3 class="popup__info">Редактировать профиль</h3>
+      <form name="popup">
+        <input class="popup__input popup__input_el_name" name="popup-name" type="text" id="name" placeholder="Имя" value="Жак-Ив Кусто" required>
 
-      <label class="popup__label" for="name">
-        <input class="popup__input popup__name" name="popup-name" type="text" id="name" min="2" max="25" placeholder="Имя" value="Жак-Ив Кусто" required>
-      </label>
+        <input class="popup__input popup__input_el_description" name="popup-description" type="text" id="description" placeholder="О себе" value="Исследователь океана" required>
 
-      <label class="popup__label" for="description">
-        <input class="popup__input popup__description" name="popup-description" type="text" id="description" min="2" max="25" placeholder="О себе" value="Исследователь океана" required>
-      </label>
-
-      <label for="submit">
         <input value="Сохранить" class="popup__btn-submit" type="submit" id="submit">
-      </label>
-    </fieldset>
-  </form>
-<script src="./vendor/index.js"></script>
+      </form>
+    </div>
+  </div>
+<script src="./scripts/index.js"></script>
 </body>
 </html>

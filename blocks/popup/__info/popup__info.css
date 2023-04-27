@@ -1,7 +1,7 @@
 .popup__info {
   color: black;
-  margin: 34px 0 41px;
-  font-family: 'Inter';
+  margin: 34px 0 36px;
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
