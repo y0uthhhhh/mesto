@@ -1,5 +1,6 @@
 .profile__description {
-  margin: 0;
+  margin: auto;
+  width: fit-content;
   grid-area: description;
   align-self: start;
   font-style: normal;
