@@ -1,6 +1,5 @@
 .profile__name {
-  margin: auto;
-  grid-area: name;
+  margin: 0 auto;
   align-self: end;
   font-style: normal;
   font-weight: 500;
