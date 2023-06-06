@@ -14,8 +14,16 @@ const profileDescription = profile.querySelector('.profile__description');
 const elements = document.querySelector('.elements');
 const cardName = popupCards.querySelector('.popup-cards__input_el_name');
 const cardImage = popupCards.querySelector('.popup-cards__input_el_description');
+const imagePopup = document.querySelector('.popup-image');
+const imagePopupName = imagePopup.querySelector('.popup-image__description')
+const imagePopupImg = imagePopup.querySelector('.popup-image__image')
+const imagePopupBtnClose = imagePopup.querySelector('.popup-image__btn-close')
 
-console.log(cardName.value)
+function imagePopupClose() {
+  imagePopup.classList.remove('popup-image_opened')
+}
+
+imagePopupBtnClose.addEventListener('click', imagePopupClose)
 
 function editCardsForm (evt) {
   evt.preventDefault();
@@ -78,6 +86,7 @@ const initialCards = [
   let elementImage = document.createElement('img')
   elementImage.classList.add('element__image')
   elementImage.src = link
+  elementImage.alt = name
   const elementTextZone = document.createElement('div');
   elementTextZone.classList.add('element__text-zone')
   let elementText = document.createElement('h2')
@@ -97,6 +106,13 @@ const initialCards = [
 
   btnDelete.addEventListener('click', function(evt) {
     element.remove()
+  })
+
+  elementImage.addEventListener('click', function(evt) {
+    imagePopup.classList.add('popup-image_opened')
+    
+    imagePopupImg.src = evt.target.src
+    imagePopupName.textContent = element.textContent
   })
 }
 

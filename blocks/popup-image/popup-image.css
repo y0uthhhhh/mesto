@@ -1,8 +1,9 @@
-.popup {
+.popup-image {
   display: flex;
-  transition: .4s;
   opacity: 0;
   visibility: hidden;
+  transition: .4s;
+  flex-direction: column;
   background-color: rgba(0, 0, 0, .5);
   position: fixed;
   align-items: center;
@@ -11,4 +12,5 @@
   top: 0;
   width: 100%;
   height: 100%;
+  margin: 0 auto;
 }
