@@ -1,0 +1,19 @@
+.popup-cards__container {
+  display: flex;
+  flex-direction: column;
+  width: calc(430px - 72px);
+  position: relative;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: 0;
+  margin: 0;
+  padding: 0 36px 37px;
+}
+
+@media screen and (max-width: 500px) {
+  .popup-cards__container {
+    width: calc(282px - 44px);
+    padding: 0 22px 25px;
+  }
+}
