@@ -39,43 +39,57 @@
     </footer>
   </div>
 
-  <div class="popup">
+  <div class="popup popup-profile">
     <div class="popup__container">
-      <button type="button" class="popup__btn-close"></button>
+      <button type="button" class="popup-profile__btn-close popup__btn-close"></button>
 
       <h3 class="popup__info">Редактировать профиль</h3>
-      <form name="popup" class="popup__form">
-        <input class="popup__input popup__input_el_name" name="popup-name" type="text" id="name" placeholder="Имя" value="Жак-Ив Кусто" required>
+      <form name="popup" class="popup-profile__form popup__form">
+        <input class="popup__input popup__input_el_name popup-profile__input_el_name" name="popup-profile-name" type="text" id="profile-name" placeholder="Имя" value="Жак-Ив Кусто" required>
 
-        <input class="popup__input popup__input_el_description" name="popup-description" type="text" id="description" placeholder="О себе" value="Исследователь океана" required>
+        <input class="popup__input popup__input_el_description popup-profile__input_el_description" name="popup-profile-description" type="text" id="profile-description" placeholder="О себе" value="Исследователь океана" required>
 
-        <input value="Сохранить" class="popup__btn-submit" type="submit" id="submit">
+        <input value="Сохранить" class="popup__btn-submit popup-profile__btn-submit" type="submit" id="profile-submit">
       </form>
     </div>
   </div>
   
-  <div class="popup-cards">
-    <div class="popup-cards__container">
-      <button type="button" class="popup-cards__btn-close"></button>
+  <div class="popup popup-cards">
+    <div class="popup__container">
+      <button type="button" class="popup__btn-close popup-cards__btn-close"></button>
 
-      <h3 class="popup-cards__info">Новое место</h3>
-      <form name="popup-cards" class="popup-cards__form">
-        <input class="popup-cards__input popup-cards__input_el_name" name="popup-cards-name" type="text" id="cards-name" placeholder="Название" required>
+      <h3 class="popup__info">Новое место</h3>
+      <form name="popup-cards" class="popup__form popup-cards__form">
+        <input class="popup__input popup-cards__input_el_name" name="popup-cards-name" type="text" id="cards-name" placeholder="Название" required>
 
-        <input class="popup-cards__input popup-cards__input_el_description" name="popup-cards-description" type="text" id="cards-description" placeholder="Ссылка на картинку" required value="">
+        <input class="popup__input popup-cards__input_el_description" name="popup-cards-description" type="url" id="cards-description" placeholder="Ссылка на картинку" required value="">
 
-        <input value="Создать" class="popup-cards__btn-submit" type="submit" id="cards-submit">
+        <input value="Создать" class="popup__btn-submit popup-cards__btn-submit" type="submit" id="cards-submit">
       </form>
     </div>
   </div>
 
-  <div class="popup-image">
+  <div class="popup popup-image">
     <div class="popup-image__container">
-      <button type="button" class="popup-image__btn-close"></button>
-      <img class="popup-image__image" src="https://vsegda-pomnim.com/uploads/posts/2022-04/1649121891_66-vsegda-pomnim-com-p-zhivopisnaya-priroda-foto-72.jpg" alt="Увеличенное изоображение">
-      <p class="popup-image__description">Байкал</p>
+      <button type="button" class="popup__btn-close popup-image__btn-close"></button>
+      <img class="popup-image__image" src="" alt="Увеличенное изоображение">
+      <p class="popup-image__description"></p>
     </div>
   </div>
+
+<template id="template-element">
+  <article class="element">
+    <button type="button" class="element__btn-delete"></button>
+    <img class="element__image" src="" alt="">
+    <div class="element__text-zone">
+      <h2 class="element__text"></h2>
+      <button type="button" class="element__like-btn"></button>
+    </div>
+  </article>
+</template>
+
+<script src="./scripts/cards.js"></script>
 <script src="./scripts/index.js"></script>
+
 </body>
 </html>

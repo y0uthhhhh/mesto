@@ -1,159 +1,111 @@
-const popup = document.querySelector('.popup');
-const popupCards = document.querySelector('.popup-cards');
+const popupProfile = document.querySelector('.popup-profile');
+const popupCard = document.querySelector('.popup-cards');
 const profile = document.querySelector('.profile');
 const editBtn = profile.querySelector('.profile__edit-btn');
 const addBtn = profile.querySelector('.profile__add-btn');
-const closeBtn = popup.querySelector('.popup__btn-close');
-const closeCardsBtn = popupCards.querySelector('.popup-cards__btn-close');
-const popupCardsForm = popupCards.querySelector('.popup-cards__form');
-const form = popup.querySelector('.popup__form');
-const name = popup.querySelector('.popup__input_el_name');
-const description = popup.querySelector('.popup__input_el_description')
+const closeBtnProfile = popupProfile.querySelector('.popup-profile__btn-close');
+const closeBtnCard = popupCard.querySelector('.popup-cards__btn-close');
+const popupCardForm = popupCard.querySelector('.popup-cards__form');
+const profileForm = popupProfile.querySelector('.popup-profile__form');
+const popupProfileNameInput = popupProfile.querySelector('.popup-profile__input_el_name');
+const popupProfileDescriptionInput = popupProfile.querySelector('.popup-profile__input_el_description')
 const profileName = profile.querySelector('.profile__name');
 const profileDescription = profile.querySelector('.profile__description');
 const elements = document.querySelector('.elements');
-const cardName = popupCards.querySelector('.popup-cards__input_el_name');
-const cardImage = popupCards.querySelector('.popup-cards__input_el_description');
+const cardNameInput = popupCard.querySelector('.popup-cards__input_el_name');
+const cardLinkInput = popupCard.querySelector('.popup-cards__input_el_description');
 const imagePopup = document.querySelector('.popup-image');
-const imagePopupName = imagePopup.querySelector('.popup-image__description')
-const imagePopupImg = imagePopup.querySelector('.popup-image__image')
-const imagePopupBtnClose = imagePopup.querySelector('.popup-image__btn-close')
+const imagePopupName = imagePopup.querySelector('.popup-image__description');
+const imagePopupImg = imagePopup.querySelector('.popup-image__image');
+const imagePopupBtnClose = imagePopup.querySelector('.popup-image__btn-close');
+const popupCardBtnSubmit = popupCard.querySelector('.popup-cards__btn-submit');
 
-function imagePopupClose() {
-  imagePopup.classList.remove('popup-image_opened')
+const templateCardElement = document.querySelector('#template-element').content
+
+
+function createCard (img, text, desc) {
+  const cardElement = templateCardElement.querySelector('.element').cloneNode(true)
+  const cardText = cardElement.querySelector('.element__text')
+
+
+  cardElement.querySelector('.element__image').src = img
+  cardElement.querySelector('.element__image').alt = desc || 'картинка' + text
+  cardText.textContent = text
+
+  elements.prepend(cardElement);
+
+  const deleteCardBtn = cardElement.querySelector('.element__btn-delete')
+
+  deleteCardBtn.addEventListener('click', () => {
+    cardElement.remove()
+  })
+
+  const likeCardBtn = cardElement.querySelector('.element__like-btn')
+
+  likeCardBtn.addEventListener('click', () => {
+    likeCardBtn.classList.toggle('element__like-btn_active')
+  })
+
+  const cardImage = cardElement.querySelector('.element__image') 
+
+  cardImage.addEventListener('click', () => {
+    openPopup(imagePopup)
+    imagePopupImg.src = cardImage.src
+    imagePopupName.textContent = cardText.textContent
+  })
 }
 
-imagePopupBtnClose.addEventListener('click', imagePopupClose)
+imagePopupBtnClose.addEventListener('click', () => {
+  closePopup(imagePopup)
+})
 
-function editCardsForm (evt) {
+function editProfile() {
+  profileName.textContent = popupProfileNameInput.value
+  profileDescription.textContent = popupProfileDescriptionInput.value
+}
+
+initialCards.forEach(element => {
+  createCard(element.link, element.name, element.alt)
+});
+
+function openPopup(popupName) {
+  popupName.classList.add('popup_opened')
+}
+
+function closePopup(popupName) {
+  popupName.classList.remove('popup_opened')
+}
+
+profileForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  addCard(cardName.value, cardImage.value) 
+  editProfile();
 
-  popupCardsClose()
-}
+  closePopup(popupProfile);
+})
 
-popupCardsForm.addEventListener('submit', editCardsForm)
-
-
-function popupCardsOpen() {
-  popupCards.classList.add('popup-cards_opened');
-}
-
-addBtn.addEventListener('click', popupCardsOpen);
-
-function popupCardsClose() {
-  popupCards.classList.remove('popup-cards_opened');
-  cardName.value = ''
-  cardImage.value = ''
-}
-
-closeCardsBtn.addEventListener('click', popupCardsClose);
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
-
-  function addCard(name, link) {
-  const element = document.createElement('article')
-  element.classList.add('element')
-  const btnDelete = document.createElement('button');
-  btnDelete.setAttribute('type', 'button');
-  btnDelete.classList.add('element__btn-delete')
-  let elementImage = document.createElement('img')
-  elementImage.classList.add('element__image')
-  elementImage.src = link
-  elementImage.alt = name
-  const elementTextZone = document.createElement('div');
-  elementTextZone.classList.add('element__text-zone')
-  let elementText = document.createElement('h2')
-  elementText.classList.add('element__text')
-  elementText.textContent = name
-  const elementLikeBtn = document.createElement('button')
-  elementLikeBtn.classList.add('element__like-btn');
-  elementLikeBtn.setAttribute('type', 'button')
-
-  elements.prepend(element)
-  element.append(btnDelete, elementImage, elementTextZone)
-  elementTextZone.append(elementText, elementLikeBtn)
+popupCardForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   
-  elementLikeBtn.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('element__like-btn_active')
-  })
+  createCard(cardLinkInput.value, cardNameInput.value);
+  
+  closePopup(popupCard);
 
-  btnDelete.addEventListener('click', function(evt) {
-    element.remove()
-  })
+  popupCardForm.reset();
+})
 
-  elementImage.addEventListener('click', function(evt) {
-    imagePopup.classList.add('popup-image_opened')
-    
-    imagePopupImg.src = evt.target.src
-    imagePopupName.textContent = element.textContent
-  })
-}
+closeBtnCard.addEventListener('click', () => {
+  closePopup(popupCard)
+});
 
-addCard(initialCards[0].name, initialCards[0].link)
-addCard(initialCards[1].name, initialCards[1].link)
-addCard(initialCards[2].name, initialCards[2].link)
-addCard(initialCards[3].name, initialCards[3].link)
-addCard(initialCards[4].name, initialCards[4].link)
-addCard(initialCards[5].name, initialCards[5].link)
+closeBtnProfile.addEventListener('click', () => {
+  closePopup(popupProfile)
+});
 
+editBtn.addEventListener('click', () => {
+  openPopup(popupProfile)
+});
 
-
-function popupOpen() {
-  popup.classList.add('popup_opened');
-  name.value = profileName.textContent
-  description.value = profileDescription.textContent
-
-}
-
-editBtn.addEventListener('click', popupOpen);
-
-function popupClose() {
-  popup.classList.remove('popup_opened');
-}
-
-closeBtn.addEventListener('click', popupClose);
-
-
-
-function editForm (evt) {
-  evt.preventDefault();
-
-  profileName.textContent = name.value
-  profileDescription.textContent = description.value
-
-  popupClose()
-}
-
-form.addEventListener('submit', editForm)
-
-
-
-
-
+addBtn.addEventListener('click', () => {
+  openPopup(popupCard)
+});
