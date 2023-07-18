@@ -22,7 +22,6 @@ const popupCardBtnSubmit = popupCard.querySelector('.popup-cards__btn-submit');
 
 const templateCardElement = document.querySelector('#template-element').content
 
-
 function createCard (img, text, desc) {
   const cardElement = templateCardElement.querySelector('.element').cloneNode(true)
   const cardText = cardElement.querySelector('.element__text')
@@ -31,8 +30,6 @@ function createCard (img, text, desc) {
   cardElement.querySelector('.element__image').src = img
   cardElement.querySelector('.element__image').alt = desc || 'картинка' + text
   cardText.textContent = text
-
-  elements.prepend(cardElement);
 
   const deleteCardBtn = cardElement.querySelector('.element__btn-delete')
 
@@ -53,7 +50,15 @@ function createCard (img, text, desc) {
     imagePopupImg.src = cardImage.src
     imagePopupName.textContent = cardText.textContent
   })
+
+  return cardElement
 }
+
+function addCard(img, text, desc) {
+const cardElement = createCard(img, text, desc)
+elements.prepend(cardElement)
+}
+
 
 imagePopupBtnClose.addEventListener('click', () => {
   closePopup(imagePopup)
@@ -65,7 +70,7 @@ function editProfile() {
 }
 
 initialCards.forEach(element => {
-  createCard(element.link, element.name, element.alt)
+  addCard(element.link, element.name, element.alt)
 });
 
 function openPopup(popupName) {
@@ -87,7 +92,7 @@ profileForm.addEventListener('submit', (evt) => {
 popupCardForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   
-  createCard(cardLinkInput.value, cardNameInput.value);
+  addCard(cardLinkInput.value, cardNameInput.value);
   
   closePopup(popupCard);
 
