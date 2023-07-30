@@ -26,7 +26,6 @@ function createCard (img, text, desc) {
   const cardElement = templateCardElement.querySelector('.element').cloneNode(true)
   const cardText = cardElement.querySelector('.element__text')
 
-
   cardElement.querySelector('.element__image').src = img
   cardElement.querySelector('.element__image').alt = desc || 'картинка' + text
   cardText.textContent = text
@@ -56,9 +55,9 @@ function createCard (img, text, desc) {
 
 function addCard(img, text, desc) {
 const cardElement = createCard(img, text, desc)
+
 elements.prepend(cardElement)
 }
-
 
 imagePopupBtnClose.addEventListener('click', () => {
   closePopup(imagePopup)
