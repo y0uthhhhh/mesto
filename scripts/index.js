@@ -113,3 +113,27 @@ editBtn.addEventListener('click', () => {
 addBtn.addEventListener('click', () => {
   openPopup(popupCard)
 });
+
+const closePopupEsc = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'))
+  document.addEventListener('keydown', function (evt) {
+    popupList.forEach((popup) => {
+        if(evt.key === 'Escape')
+          closePopup(popup)
+      })
+  })
+}
+closePopupEsc()
+
+const closePopupClick = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'))
+  popupList.forEach((popup) => {
+    popup.addEventListener('click', function(evt) {
+      if(evt.currentTarget === evt.target) {
+        closePopup(popup)
+      }
+    })
+  })
+}
+
+closePopupClick()

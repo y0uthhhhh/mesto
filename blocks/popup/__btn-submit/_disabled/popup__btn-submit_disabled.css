@@ -5,6 +5,5 @@
 }
 
 .popup__btn-submit:hover {
-  cursor: default;
   opacity: 1;
 }

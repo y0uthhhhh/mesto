@@ -7,36 +7,65 @@
   errorClass: 'popup__error_visible'
 }); */ 
 
-const showInputError = (inputElement, errorMessage) => {
-const errorElement = document.querySelector(`.${inputElement.id}-error`)
+const showInputError = (formElement, inputElement, errorMessage) => {
+const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
 inputElement.classList.add('popup__input_type_error')
 errorElement.textContent = errorMessage
 errorElement.classList.add('popup__input-error_active')
 };
 
-const hideInputError = (inputElement) => {
-  const errorElement = document.querySelector(`.${inputElement.id}-error`)
+const hideInputError = (formElement, inputElement) => {
+const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
 inputElement.classList.remove('popup__input_type_error')
 errorElement.classList.remove('form__input-error_active');
 errorElement.textContent = '';
 };
 
-const checkInputValidity = (inputElement) => {
+const checkInputValidity = (formElement, inputElement) => {
  if(!inputElement.validity.valid) {
-  showInputError(inputElement)
+  showInputError(formElement, inputElement, inputElement.validationMessage)
  } else {
-  hideInputError(inputElement)
+  hideInputError(formElement, inputElement)
  }
 };
 
-const setEvenetListeners = () => {
-  const inputList = Array.from(document.querySelectorAll('.popup__input'));
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid
+  })
+}
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if(hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__btn-submit_disabled');
+    buttonElement.setAttribute('disabled', true)
+  } else {
+    buttonElement.classList.remove('popup__btn-submit_disabled');
+    buttonElement.removeAttribute('disabled', true)
+  }
+}
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const buttonElement = formElement.querySelector('.popup__btn-submit');
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function(evt) {
-      checkInputValidity(evt.target)
+      checkInputValidity(formElement, inputElement)
+      toggleButtonState(inputList, buttonElement)
     })
   })
 }
 
-setEvenetListeners()
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach(function (formElement) {
+    formElement.addEventListener('sumbit', function(evt) {
+      evt.preventDefault
+    })
+    setEventListeners(formElement)
+  })
+}
+
+enableValidation()
 
