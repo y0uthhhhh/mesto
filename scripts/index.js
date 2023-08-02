@@ -72,12 +72,22 @@ initialCards.forEach(element => {
   addCard(element.link, element.name, element.alt)
 });
 
+const closePopupEsc = (evt) => {
+  const popupList = Array.from(document.querySelectorAll('.popup'))
+  popupList.forEach((popup) => {
+      if(evt.key === 'Escape')
+        closePopup(popup)
+  })
+}
+
 function openPopup(popupName) {
   popupName.classList.add('popup_opened')
+  document.addEventListener('keydown', closePopupEsc)
 }
 
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened')
+  document.removeEventListener('keydown', closePopupEsc)
 }
 
 profileForm.addEventListener('submit', (evt) => {
@@ -108,22 +118,16 @@ closeBtnProfile.addEventListener('click', () => {
 
 editBtn.addEventListener('click', () => {
   openPopup(popupProfile)
+  popupProfileNameInput.value = profileName.textContent
+  popupProfileDescriptionInput.value = profileDescription.textContent
+  hideInputError(profileForm, popupProfileDescriptionInput)
+  hideInputError(profileForm, popupProfileNameInput)
 });
 
 addBtn.addEventListener('click', () => {
   openPopup(popupCard)
+  enableValidation(validationConfig)
 });
-
-const closePopupEsc = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'))
-  document.addEventListener('keydown', function (evt) {
-    popupList.forEach((popup) => {
-        if(evt.key === 'Escape')
-          closePopup(popup)
-      })
-  })
-}
-closePopupEsc()
 
 const closePopupClick = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'))

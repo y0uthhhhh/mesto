@@ -1,11 +1,11 @@
-/* enableValidation({
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__btn-submit',
   inactiveButtonClass: 'popup__btn-submit_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}); */ 
+  errorClass: 'form__input-error_active'
+}
 
 const showInputError = (formElement, inputElement, errorMessage) => {
 const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
@@ -16,8 +16,8 @@ errorElement.classList.add('popup__input-error_active')
 
 const hideInputError = (formElement, inputElement) => {
 const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-inputElement.classList.remove('popup__input_type_error')
-errorElement.classList.remove('form__input-error_active');
+inputElement.classList.remove(validationConfig.inputErrorClass)
+errorElement.classList.remove(validationConfig.errorClass);
 errorElement.textContent = '';
 };
 
@@ -37,17 +37,17 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement) => {
   if(hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__btn-submit_disabled');
+    buttonElement.classList.add(validationConfig.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true)
   } else {
-    buttonElement.classList.remove('popup__btn-submit_disabled');
+    buttonElement.classList.remove(validationConfig.inactiveButtonClass);
     buttonElement.removeAttribute('disabled', true)
   }
 }
 
 const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__btn-submit');
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+  const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function(evt) {
@@ -58,7 +58,7 @@ const setEventListeners = (formElement) => {
 }
 
 const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
   formList.forEach(function (formElement) {
     formElement.addEventListener('sumbit', function(evt) {
       evt.preventDefault
@@ -67,5 +67,5 @@ const enableValidation = () => {
   })
 }
 
-enableValidation()
+enableValidation(validationConfig);
 
