@@ -73,11 +73,10 @@ initialCards.forEach(element => {
 });
 
 const closePopupEsc = (evt) => {
-  const popupList = Array.from(document.querySelectorAll('.popup'))
-  popupList.forEach((popup) => {
-      if(evt.key === 'Escape')
-        closePopup(popup)
-  })
+  const openedPopup = document.querySelector('.popup_opened')
+    if(evt.key === 'Escape') {
+  closePopup(openedPopup)
+  }
 }
 
 function openPopup(popupName) {
@@ -120,13 +119,12 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile)
   popupProfileNameInput.value = profileName.textContent
   popupProfileDescriptionInput.value = profileDescription.textContent
-  hideInputError(profileForm, popupProfileDescriptionInput)
-  hideInputError(profileForm, popupProfileNameInput)
+  hideInputError(popupProfile, popupProfileNameInput, validationConfig)
+  hideInputError(popupProfile, popupProfileDescriptionInput, validationConfig)
 });
 
 addBtn.addEventListener('click', () => {
   openPopup(popupCard)
-  enableValidation(validationConfig)
 });
 
 const closePopupClick = () => {
