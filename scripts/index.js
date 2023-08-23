@@ -1,3 +1,6 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./card.js";
+
 const popupProfile = document.querySelector('.popup-profile');
 const popupCard = document.querySelector('.popup-cards');
 const profile = document.querySelector('.profile');
@@ -20,57 +23,67 @@ const imagePopupImg = imagePopup.querySelector('.popup-image__image');
 const imagePopupBtnClose = imagePopup.querySelector('.popup-image__btn-close');
 const popupCardBtnSubmit = popupCard.querySelector('.popup-cards__btn-submit');
 
-const templateCardElement = document.querySelector('#template-element').content
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+    alt: 'изображение озера, вокруг горы'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+    alt: 'изображение озера в заснеженном лесу'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+    alt: 'изображение старых жилых многоэтажных домов'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+    alt: 'изображение земли с травой, на заднем плане горы'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+    alt: 'изображение с деревьями вдоль железной дороги'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    alt: 'изображение гор с заснеженными вершинами'
+  }
+];
 
-function createCard (img, text, desc) {
-  const cardElement = templateCardElement.querySelector('.element').cloneNode(true)
-  const cardText = cardElement.querySelector('.element__text')
-
-  cardElement.querySelector('.element__image').src = img
-  cardElement.querySelector('.element__image').alt = desc || 'картинка' + text
-  cardText.textContent = text
-
-  const deleteCardBtn = cardElement.querySelector('.element__btn-delete')
-
-  deleteCardBtn.addEventListener('click', () => {
-    cardElement.remove()
-  })
-
-  const likeCardBtn = cardElement.querySelector('.element__like-btn')
-
-  likeCardBtn.addEventListener('click', () => {
-    likeCardBtn.classList.toggle('element__like-btn_active')
-  })
-
-  const cardImage = cardElement.querySelector('.element__image') 
-
-  cardImage.addEventListener('click', () => {
-    openPopup(imagePopup)
-    imagePopupImg.src = cardImage.src
-    imagePopupName.textContent = cardText.textContent
-  })
-
-  return cardElement
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__btn-submit',
+  inactiveButtonClass: 'popup__btn-submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
 }
 
-function addCard(img, text, desc) {
-const cardElement = createCard(img, text, desc)
-
-elements.prepend(cardElement)
+const addCard = (data, templateElement) => {
+  const card = new Card(data, templateElement)
+  const cardElement = card.generateCard()
+  
+  elements.prepend(cardElement)
 }
+
+initialCards.forEach(element => {
+  addCard(element, '#template-element')
+});
 
 imagePopupBtnClose.addEventListener('click', () => {
   closePopup(imagePopup)
 })
 
-function editProfile() {
+const editProfile = () => {
   profileName.textContent = popupProfileNameInput.value
   profileDescription.textContent = popupProfileDescriptionInput.value
 }
-
-initialCards.forEach(element => {
-  addCard(element.link, element.name, element.alt)
-});
 
 const closePopupEsc = (evt) => {
   const openedPopup = document.querySelector('.popup_opened')
@@ -79,12 +92,14 @@ const closePopupEsc = (evt) => {
   }
 }
 
-function openPopup(popupName) {
+const openPopup = (popupName) => {
   popupName.classList.add('popup_opened')
   document.addEventListener('keydown', closePopupEsc)
+  popupProfileValidation.clearErrors()
+  popupCardValidation.clearErrors()
 }
 
-function closePopup(popupName) {
+const closePopup = (popupName) => {
   popupName.classList.remove('popup_opened')
   document.removeEventListener('keydown', closePopupEsc)
 }
@@ -100,7 +115,7 @@ profileForm.addEventListener('submit', (evt) => {
 popupCardForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   
-  addCard(cardLinkInput.value, cardNameInput.value);
+  addCard({link: cardLinkInput.value, name: cardNameInput.value}, '#template-element');
   
   closePopup(popupCard);
 
@@ -119,13 +134,12 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile)
   popupProfileNameInput.value = profileName.textContent
   popupProfileDescriptionInput.value = profileDescription.textContent
-  hideInputError(popupProfile, popupProfileNameInput, validationConfig)
-  hideInputError(popupProfile, popupProfileDescriptionInput, validationConfig)
 });
 
 addBtn.addEventListener('click', () => {
   openPopup(popupCard)
 });
+
 
 const closePopupClick = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'))
@@ -139,3 +153,11 @@ const closePopupClick = () => {
 }
 
 closePopupClick()
+
+const popupProfileValidation = new FormValidator(config, popupProfile)
+popupProfileValidation.enableValidation()
+const popupCardValidation = new FormValidator(config, popupCard)
+popupCardValidation.enableValidation()
+
+export { openPopup, imagePopup, imagePopupImg, imagePopupName }
+
