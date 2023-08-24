@@ -1,8 +1,6 @@
 class FormValidator {
   constructor (validationConfig, formElement) {
     this._formElement = formElement
-    this._formSelector = validationConfig.formSelector
-    this._inputSelector = validationConfig.inputSelector
     this._buttonElement = formElement.querySelector(validationConfig.submitButtonSelector)
     this._inactiveButtonClass = validationConfig.inactiveButtonClass
     this._inputErrorClass = validationConfig.inputErrorClass
@@ -49,7 +47,7 @@ class FormValidator {
        this._disableButton()
       } else {
         this._buttonElement.classList.remove(this._inactiveButtonClass);
-        this._buttonElement.removeAttribute('disabled', true)
+        this._buttonElement.removeAttribute('disabled')
       }
     }
     
@@ -68,15 +66,12 @@ class FormValidator {
     }
     
   enableValidation () {
-      this._formElement.addEventListener('sumbit', function(evt) {
-        evt.preventDefault
-      })
       this._setEventListeners()
     }
     
   _disableButton () {
       this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.setAttribute('disabled', true)
+      this._buttonElement.disabled = true;
     }
 }
 

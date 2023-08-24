@@ -1,5 +1,6 @@
 import FormValidator from "./FormValidator.js";
-import Card from "./card.js";
+import Card from "./Card.js";
+import initialCards from "./cards.js";
 
 const popupProfile = document.querySelector('.popup-profile');
 const popupCard = document.querySelector('.popup-cards');
@@ -14,49 +15,15 @@ const popupProfileNameInput = popupProfile.querySelector('.popup-profile__input-
 const popupProfileDescriptionInput = popupProfile.querySelector('.popup-profile__input-description')
 const profileName = profile.querySelector('.profile__name');
 const profileDescription = profile.querySelector('.profile__description');
-const elements = document.querySelector('.elements');
+const cardsContainer = document.querySelector('.elements');
 const cardNameInput = popupCard.querySelector('.popup-cards__input-name');
 const cardLinkInput = popupCard.querySelector('.popup-cards__input-description');
 const imagePopup = document.querySelector('.popup-image');
 const imagePopupName = imagePopup.querySelector('.popup-image__description');
 const imagePopupImg = imagePopup.querySelector('.popup-image__image');
 const imagePopupBtnClose = imagePopup.querySelector('.popup-image__btn-close');
-const popupCardBtnSubmit = popupCard.querySelector('.popup-cards__btn-submit');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'изображение озера, вокруг горы'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    alt: 'изображение озера в заснеженном лесу'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'изображение старых жилых многоэтажных домов'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'изображение земли с травой, на заднем плане горы'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'изображение с деревьями вдоль железной дороги'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'изображение гор с заснеженными вершинами'
-  }
-];
-
-const config = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__btn-submit',
@@ -65,20 +32,16 @@ const config = {
   errorClass: 'popup__input-error_active',
 }
 
-const addCard = (data, templateElement) => {
+const createCard = (data, templateElement) => {
   const card = new Card(data, templateElement)
   const cardElement = card.generateCard()
   
-  elements.prepend(cardElement)
+  return cardElement
 }
 
 initialCards.forEach(element => {
-  addCard(element, '#template-element')
+  cardsContainer.prepend(createCard(element, '#template-element'))
 });
-
-imagePopupBtnClose.addEventListener('click', () => {
-  closePopup(imagePopup)
-})
 
 const editProfile = () => {
   profileName.textContent = popupProfileNameInput.value
@@ -86,17 +49,22 @@ const editProfile = () => {
 }
 
 const closePopupEsc = (evt) => {
-  const openedPopup = document.querySelector('.popup_opened')
-    if(evt.key === 'Escape') {
-  closePopup(openedPopup)
+  if(evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
   }
 }
 
 const openPopup = (popupName) => {
   popupName.classList.add('popup_opened')
   document.addEventListener('keydown', closePopupEsc)
-  popupProfileValidation.clearErrors()
-  popupCardValidation.clearErrors()
+}
+
+const openImagePopup = (image, description) => {
+  openPopup(imagePopup)
+  imagePopupImg.src = image
+  imagePopupName.textContent = description
+  imagePopupImg.alt = description
 }
 
 const closePopup = (popupName) => {
@@ -104,18 +72,35 @@ const closePopup = (popupName) => {
   document.removeEventListener('keydown', closePopupEsc)
 }
 
-profileForm.addEventListener('submit', (evt) => {
+const setPopupOverlayClickListeners = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'))
+  popupList.forEach((popup) => {
+    popup.addEventListener('click', function(evt) {
+      if(evt.currentTarget === evt.target) {
+        closePopup(popup)
+      }
+    })
+  })
+}
+
+imagePopupBtnClose.addEventListener('click', () => {
+  closePopup(imagePopup)
+})
+
+const submitProfileForm = (evt) => {
   evt.preventDefault();
 
   editProfile();
 
   closePopup(popupProfile);
-})
+}
+
+profileForm.addEventListener('submit', submitProfileForm)
 
 popupCardForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   
-  addCard({link: cardLinkInput.value, name: cardNameInput.value}, '#template-element');
+  cardsContainer.prepend(createCard({link: cardLinkInput.value, name: cardNameInput.value}, '#template-element'));
   
   closePopup(popupCard);
 
@@ -134,30 +119,20 @@ editBtn.addEventListener('click', () => {
   openPopup(popupProfile)
   popupProfileNameInput.value = profileName.textContent
   popupProfileDescriptionInput.value = profileDescription.textContent
+  popupProfileValidation.clearErrors()
 });
 
 addBtn.addEventListener('click', () => {
   openPopup(popupCard)
+  popupCardValidation.clearErrors()
 });
 
+setPopupOverlayClickListeners()
 
-const closePopupClick = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'))
-  popupList.forEach((popup) => {
-    popup.addEventListener('click', function(evt) {
-      if(evt.currentTarget === evt.target) {
-        closePopup(popup)
-      }
-    })
-  })
-}
-
-closePopupClick()
-
-const popupProfileValidation = new FormValidator(config, popupProfile)
+const popupProfileValidation = new FormValidator(validationConfig, popupProfile)
 popupProfileValidation.enableValidation()
-const popupCardValidation = new FormValidator(config, popupCard)
+const popupCardValidation = new FormValidator(validationConfig, popupCard)
 popupCardValidation.enableValidation()
 
-export { openPopup, imagePopup, imagePopupImg, imagePopupName }
+export default openImagePopup
 
