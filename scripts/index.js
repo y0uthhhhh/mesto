@@ -83,11 +83,7 @@ const setPopupOverlayClickListeners = () => {
   })
 }
 
-imagePopupBtnClose.addEventListener('click', () => {
-  closePopup(imagePopup)
-})
-
-const submitProfileForm = (evt) => {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
 
   editProfile();
@@ -95,7 +91,11 @@ const submitProfileForm = (evt) => {
   closePopup(popupProfile);
 }
 
-profileForm.addEventListener('submit', submitProfileForm)
+imagePopupBtnClose.addEventListener('click', () => {
+  closePopup(imagePopup)
+})
+
+profileForm.addEventListener('submit', handleProfileFormSubmit)
 
 popupCardForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
